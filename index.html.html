@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Aya</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    background: radial-gradient(circle at top, #1b0b26, #0d0014); /* tonos oscuros lilas */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Estrellas flotantes */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+}
+.star:nth-child(1) { width: 2px; height: 2px; top: 10%; left: 15%; animation-delay: 0s; }
+.star:nth-child(2) { width: 3px; height: 3px; top: 25%; left: 75%; animation-delay: 1s; }
+.star:nth-child(3) { width: 1px; height: 1px; top: 40%; left: 35%; animation-delay: 2s; }
+.star:nth-child(4) { width: 2px; height: 2px; top: 55%; left: 20%; animation-delay: 0.5s; }
+.star:nth-child(5) { width: 3px; height: 3px; top: 70%; left: 85%; animation-delay: 1.5s; }
+.star:nth-child(6) { width: 1px; height: 1px; top: 80%; left: 55%; animation-delay: 2.5s; }
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Corazones flotantes */
+.heart {
+    position: absolute;
+    color: #ff9ce1; /* rosa-lila más suave */
+    font-size: 20px;
+    animation: floatUp 5s linear infinite;
+    pointer-events: none;
+}
+.heart:nth-child(7) { left: 10%; animation-delay: 0s; }
+.heart:nth-child(8) { left: 30%; animation-delay: 1s; }
+.heart:nth-child(9) { left: 50%; animation-delay: 2s; }
+.heart:nth-child(10) { left: 70%; animation-delay: 3s; }
+.heart:nth-child(11) { left: 90%; animation-delay: 4s; }
+@keyframes floatUp {
+    0% { bottom: -50px; opacity: 1; transform: scale(1); }
+    100% { bottom: 100vh; opacity: 0; transform: scale(0.5); }
+}
+
+/* Indicador */
+.hint {
+    position: absolute;
+    bottom: 40px;
+    color: rgba(255,255,255,0.8);
+    font-family: Playfair Display;
+    font-size: 16px;
+    letter-spacing: 1px;
+    animation: blink 2s infinite;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+@keyframes blink { 0%,100%{opacity:.2;} 50%{opacity:.8;} }
+
+/* SOBRE */
+.envelope {
+    width: 400px;
+    height: 260px;
+    background: linear-gradient(135deg, #3d0c4c, #6a1b8a); /* tonos lilas oscuros */
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: transform 1s ease, box-shadow 1s ease;
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* SOLAPA */
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4b1070, #7d2eb0); /* lilas más brillantes */
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+    transform-origin: top;
+    transition: transform 1s ease;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* PAPEL */
+.letter {
+    width: 360px;
+    height: 220px;
+    background: linear-gradient(145deg, #f7f0f9, #e8dcee); /* papel con tono lila muy suave */
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+    padding: 18px;
+    font-family: Playfair Display;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 0 10px rgba(255,255,255,0.5);
+    transform: translateY(140px);
+    transition: transform 1.2s ease, box-shadow 1.2s ease, opacity 1.2s ease;
+    overflow-y: auto;
+    border: 1px solid rgba(0,0,0,0.1);
+    opacity: 0;
+}
+
+/* ABIERTO */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+.envelope.open .letter {
+    transform: translateY(-60px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.7);
+    opacity: 1;
+}
+.envelope.open {
+    transform: scale(1.1);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.9), inset 0 0 30px rgba(255,255,255,0.2);
+}
+
+/* Botón */
+button {
+    margin-top: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #4b1070, #7d2eb0);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+button:hover { 
+    background: linear-gradient(135deg, #7d2eb0, #a24ee0); 
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+#drawing {
+    display: none;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: opacity 0.5s ease;
+}
+#drawing.show {
+    opacity: 1;
+}
+</style>
+</head>
+
+<body>
+<!-- Estrellas flotantes -->
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+<div class="star"></div>
+
+<!-- Corazones flotantes -->
+<div class="heart">♥</div>
+<div class="heart">♥</div>
+<div class="heart">♥</div>
+<div class="heart">♥</div>
+<div class="heart">♥</div>
+
+<div class="envelope" onclick="openLetter()">
+    <div class="flap"></div>
+
+    <div class="letter">
+        <p><b>Aya,</b></p>
+
+        <p>cada vez que pienso en ti,<br>
+        el mundo se vuelve más brillante,<br>
+        como si cada estrella supiera tu nombre.</p>
+
+        <p>La distancia no importa,<br>
+        porque siento tu presencia<br>
+        incluso cuando no estás cerca,<br>
+        y cada pensamiento tuyo me hace sonreír.</p>
+
+        <p>A veces imagino que,<br>
+        en algún rincón del cielo,<br>
+        miras la misma luna que yo,<br>
+        y me pregunto si también piensas en mí.</p>
+
+        <p>No sé qué nos depara el destino,<br>
+        pero me gustas con una calma que llena,<br>
+        que hace que todo lo demás se desvanezca por un momento.</p>
+
+        <p><b>Feliz San Valentín, Aya.</b><br>
+        Ojalá algún día podamos mirarnos sin palabras,<br>
+        y sentir que todo valió la pena.</p>
+
+        <button onclick="showDrawing(event)">Ver mi dibujo</button>
+        <img id="drawing" src="tuDibujoParaAya.png" alt="Dibujo para Aya">
+    </div>
+</div>
+
+<div class="hint">Pulsa el sobre</div>
+
+<script>
+function openLetter() {
+    document.querySelector(".envelope").classList.add("open");
+    document.querySelector(".hint").style.display = "none";
+}
+
+function showDrawing(e) {
+    e.stopPropagation();
+    const drawing = document.getElementById("drawing");
+    drawing.style.display = "block";
+    setTimeout(() => drawing.classList.add("show"), 10);
+}
+</script>
+
+</body>
+</html>
